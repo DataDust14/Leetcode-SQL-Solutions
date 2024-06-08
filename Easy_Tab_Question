@@ -1,0 +1,35 @@
+Question 1: (Recyclable and Low Fat Product) https://leetcode.com/problems/recyclable-and-low-fat-products/?envType=study-plan-v2&envId=top-sql-50
+select product_id from Products
+where low_fats = 'Y'  AND recyclable = 'Y'
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 2: (Find Customer Referee) https://leetcode.com/problems/find-customer-referee/?envType=study-plan-v2&envId=top-sql-50
+
+select name from Customer
+where referee_id IS NULL 
+UNION ALL
+select name from customer
+where referee_id != 2;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 3: (Big Countries) https://leetcode.com/problems/big-countries/submissions/1281273923/?envType=study-plan-v2&envId=top-sql-50
+
+select name, population, area from World
+where area >= 3000000 OR population >= 25000000;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 4: (Article View1) https://leetcode.com/problems/article-views-i/submissions/1281277182/?envType=study-plan-v2&envId=top-sql-50
+
+select distinct author_id as id from Views
+where author_id = viewer_id
+order by 1 asc;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 5: (Invalid Tweet) https://leetcode.com/problems/invalid-tweets/submissions/1281279719/?envType=study-plan-v2&envId=top-sql-50
+
+select tweet_id from Tweets
+where LENGTH(content) > 15 

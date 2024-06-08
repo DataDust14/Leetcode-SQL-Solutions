@@ -1,1 +1,80 @@
+Question 1: (Replace ID with Unique_id) https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/?envType=study-plan-v2&envId=top-sql-50
 
+select unique_id, name 
+from Employees E
+LEFT JOIN EmployeeUNI U 
+ON E.id = U.id
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 2: (Product Sales Analysis 1) https://leetcode.com/problems/product-sales-analysis-i/?envType=study-plan-v2&envId=top-sql-50
+
+select product_name, year, price from Product P
+JOIN Sales S
+ON P.product_id = S.product_id
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 3: (Customer Visited but not made any transaction) https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/description/?envType=study-plan-v2&envId=top-sql-50
+
+select customer_id, Count(V.visit_id) as count_no_trans from Visits V
+LEFT JOIN  Transactions T
+ON V.visit_id = T.visit_id
+where transaction_id IS NULL
+group by 1;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 3: (Raising Temperature) https://leetcode.com/problems/rising-temperature/description/?envType=study-plan-v2&envId=top-sql-50
+
+SELECT w1.id
+FROM Weather w1, Weather w2
+WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
+
+Solution 2
+
+with cte1 as
+(
+    select 
+    id, temperature,
+    lag(temperature) OVER (order by recordDate) as High_temp
+    from Weather
+)
+select id from cte1
+where temperature-High_temp > 0
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 4: (Average Time of process Per machine) https://leetcode.com/problems/average-time-of-process-per-machine/description/?envType=study-plan-v2&envId=top-sql-50
+with cte1 as
+(
+  select  
+  machine_id, 
+  process_id,
+  sum(case when activity_type = 'start' then timestamp end) as start_time,
+  sum(case when activity_type = 'end' then timestamp end) as end_time
+  from Activity
+  group by 1,2
+),
+cte2 AS
+(
+    select machine_id, process_id, (end_time-start_time) as Process_time
+    from cte1
+    group by 1,2
+)
+select machine_id, ROUND(avg(Process_time),3) AS processing_time from cte2
+group by 1;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 5: (Employee Bonus) https://leetcode.com/problems/employee-bonus/description/?envType=study-plan-v2&envId=top-sql-50
+
+select name, bonus 
+from Employee E
+LEFT JOIN Bonus B
+ON E.empId = B.empId
+where bonus<1000 or bonus IS NULL;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 6: ()

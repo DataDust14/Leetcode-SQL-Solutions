@@ -31,7 +31,7 @@ SELECT w1.id
 FROM Weather w1, Weather w2
 WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
 
-Solution 2
+We can also do this with Common Expression Table method.
 
 with cte1 as
 (
@@ -77,4 +77,52 @@ where bonus<1000 or bonus IS NULL;
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Question 6: ()
+Question 6: (Students and examinations) https://leetcode.com/problems/students-and-examinations/description/?envType=study-plan-v2&envId=top-sql-50
+
+select
+S.student_id,
+S.student_name, 
+B.subject_name,
+count(E.subject_name) as attended_exams
+from Students S
+Cross Join Subjects B
+LEFT JOIN Examinations E
+ON S.student_id = E.student_id AND B.subject_name = E.subject_name
+group by 1,2,3
+order by 1,2,3
+
+CROSS JOIN:
+Students S CROSS JOIN Subjects B: This creates all possible combinations of students and subjects.
+LEFT JOIN:
+LEFT JOIN Examinations E ON S.student_id = E.student_id AND B.subject_name = E.subject_name:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 7: (Manager with 5 direct Reportee) https://leetcode.com/problems/managers-with-at-least-5-direct-reports/?envType=study-plan-v2&envId=top-sql-50
+
+with cte1 as
+(
+    select E1.managerId, E2.name as name, count(E2.id) 
+    from Employee E1
+    JOIN Employee E2
+    ON E1.managerId = E2.id
+    group by 1 
+    having count(E2.id) >= 5
+)
+select name from cte1
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 8: (Confirmation Rate) https://leetcode.com/problems/confirmation-rate/description/?envType=study-plan-v2&envId=top-sql-50
+
+select 
+S.user_id,
+coalesce(ROUND((count(case when action = 'confirmed' then S.user_id end)/(count(action))),2),0) as confirmation_rate
+from Signups S
+LEFT JOIN Confirmations C
+ON S.user_id = C.user_id
+group by 1;
+
+
+
+END Of JOIN SECTION >.....................................................................................

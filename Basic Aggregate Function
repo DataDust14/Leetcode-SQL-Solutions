@@ -1,0 +1,26 @@
+Question 1: (Not Boring Movies) https://leetcode.com/problems/not-boring-movies/?envType=study-plan-v2&envId=top-sql-50
+
+select * from Cinema
+where id%2 != 0 and description != 'boring'
+order by rating DESC
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 2: (Average Selling Price) https://leetcode.com/problems/average-selling-price/?envType=study-plan-v2&envId=top-sql-50
+
+SELECT p.product_id, 
+COALESCE(ROUND(SUM(units*price)/SUM(units),2),0) AS average_price
+FROM Prices p 
+LEFT JOIN UnitsSold u
+ON p.product_id = u.product_id
+AND u.purchase_date BETWEEN start_date AND end_date
+group by product_id
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 3: (Project Employee 1) https://leetcode.com/problems/project-employees-i/?envType=study-plan-v2&envId=top-sql-50
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 4: (Percentage of User Attended Contest) 

@@ -1,0 +1,27 @@
+Question 1: (Number of unquie subject taught by each teacher) https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/?envType=study-plan-v2&envId=top-sql-50
+
+select teacher_id, count(DISTINCT subject_id) as cnt from Teacher
+group by 1
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 2: (User activity for past 30 days) https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/?source=submission-noac
+
+select activity_date as day, count(DISTINCT user_id) as active_users from Activity
+where activity_date BETWEEN '2019-06-28' AND '2019-07-27'
+group by 1
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 3: (Number of unquie subject taught by each teacher)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 4: (Number of unquie subject taught by each teacher)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 5: (Number of unquie subject taught by each teacher)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 6: (Number of unquie subject taught by each teacher)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 7: (Number of unquie subject taught by each teacher)

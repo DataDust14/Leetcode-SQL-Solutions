@@ -20,7 +20,87 @@ group by product_id
 
 Question 3: (Project Employee 1) https://leetcode.com/problems/project-employees-i/?envType=study-plan-v2&envId=top-sql-50
 
+select 
+P.project_id, 
+ROUND(avg(experience_years),2) as average_years 
+from Project P
+LEFT JOIN Employee E
+ON P.employee_id = E.employee_id
+group by 1
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Question 4: (Percentage of User Attended Contest) 
+
+select 
+contest_id, 
+ROUND((count(R.user_id)/(select count(user_id) from Users))*100,2) as percentage
+from Users U
+LEFT JOIN Register R
+ON U.user_id = R.user_id
+where contest_id IS NOT NULL
+group by 1
+order by 2 DESC, 1
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 5: (Queries, Quality and Percentage) https://leetcode.com/problems/queries-quality-and-percentage/description/?envType=study-plan-v2&envId=top-sql-50
+
+select query_name, ROUND(avg(rating/position),2) as quality,
+ROUND((count(case when rating < 3 THEN 1 END) )/(count(rating))*100,2) as poor_query_percentage
+from Queries
+where query_name is NOT NULL
+group by 1
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 6: (Monthly Transaction 1) https://leetcode.com/problems/monthly-transactions-i/description/?envType=study-plan-v2&envId=top-sql-50
+
+select 
+SUBSTR(trans_date,1,7) as month,
+country,
+count(state) as trans_count,
+count(case when state = 'approved' then 1 end) as approved_count,
+sum(amount) as trans_total_amount,
+sum(case when state = 'approved' THEN amount ELSE 0 end) as approved_total_amount
+from Transactions
+group by 1,2
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 7: (Immediate Food delivery) https://leetcode.com/problems/immediate-food-delivery-ii/?envType=study-plan-v2&envId=top-sql-50
+
+with cte1 as
+(
+select
+delivery_id,
+customer_id,
+order_date as O,
+dense_rank() OVER (PARTITION BY customer_id ORDER BY order_date) as P,
+customer_pref_delivery_date as D
+from Delivery
+),
+cte2 as
+(
+    select count(*) from cte1
+    where P = 1
+)
+select ROUND((count(*)/(select * from cte2))*100,2) as immediate_percentage 
+from cte1
+where P = 1 AND O=D
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 8: (Game Play Analysis) https://leetcode.com/problems/game-play-analysis-iv/description/?envType=study-plan-v2&envId=top-sql-50
+
+with cte1 as
+(
+    select 
+    player_id,
+    event_date,
+    MIN(event_date) OVER (PARTITION BY player_id) as M
+    from Activity
+)
+select ROUND(count(player_id)/(select count(DISTINCT player_id) from activity),2) as fraction from cte1 
+where datediff(event_date, M) = 1
+

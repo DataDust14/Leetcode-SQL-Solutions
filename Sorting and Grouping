@@ -52,4 +52,7 @@ HAVING COUNT(num) = 1)
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Question 7: (Customer who bought all products) https://leetcode.com/problems/customers-who-bought-all-products/?envType=study-plan-v2&envId=top-sql-50
 
+select customer_id from Customer
+group by 1
+having count(distinct product_key) = (select count(product_key) from Product)
 

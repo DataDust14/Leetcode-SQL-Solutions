@@ -12,16 +12,44 @@ group by 1
 
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Question 3: (Number of unquie subject taught by each teacher)
+Question 3: (Product Sales Analysis 3) https://leetcode.com/problems/product-sales-analysis-iii/?envType=study-plan-v2&envId=top-sql-50
+
+select
+    product_id,
+    year as first_year,
+    quantity,
+    price
+    from Sales S
+    where (product_id, year) IN (select product_id, min(year) from Sales group by 1)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Question 4: (Number of unquie subject taught by each teacher)
+Question 4: (Class more than 5 students) https://leetcode.com/problems/classes-more-than-5-students/description/?envType=study-plan-v2&envId=top-sql-50
+
+select class from 
+(select class,
+count(student) 
+from Courses
+group by 1
+having count(student) >= 5) as P
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Question 5: (Number of unquie subject taught by each teacher)
+Question 5: (Find Followers count) https://leetcode.com/problems/find-followers-count/description/?envType=study-plan-v2&envId=top-sql-50
+
+select user_id, count(follower_id) as followers_count from Followers
+group by 1
+order by 1;
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Question 6: (Number of unquie subject taught by each teacher)
+Question 6: (Biggest Single Number) https://leetcode.com/problems/biggest-single-number/description/?envType=study-plan-v2&envId=top-sql-50
+
+select 
+MAX(num) as num
+from Mynumbers
+WHERE num IN (SELECT num FROM MyNumbers
+GROUP BY num
+HAVING COUNT(num) = 1)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Question 7: (Number of unquie subject taught by each teacher)
+Question 7: (Customer who bought all products) https://leetcode.com/problems/customers-who-bought-all-products/?envType=study-plan-v2&envId=top-sql-50
+
+

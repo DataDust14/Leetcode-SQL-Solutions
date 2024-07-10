@@ -1,0 +1,72 @@
+Question 1: (The number employees which report to each employee)
+select 
+    E1.employee_id,
+    E1.name,
+    count(E2.name) as reports_count,
+    ROUND(avg(E2.age)) as average_age
+    from Employees E1
+    JOIN Employees E2
+    ON E1.employee_id = E2.reports_to
+    group by 1,2
+    order by 1;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 2: (Primary Department of each employee)
+
+Solution 1:
+select
+    employee_id,
+    department_id
+    from Employee
+    group by 1
+    having count(department_id) = 1
+UNION
+select
+    employee_id,
+    department_id
+    from Employee
+    where primary_flag = 'Y'
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 3: (Triangle Judgement) 
+
+select 
+x,y,z,
+case when x+y>z and y+z>x and z+x>y then 'Yes' else 'No' end as triangle
+from Triangle 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Question 4: (Consecutive Number)
+
+select distinct A.num as ConsecutiveNums 
+from Logs A
+JOIN Logs B
+Join Logs C
+ON A.id = B.id - 1
+AND B.id = c.id - 1
+where A.num=B.num and B.num=C.num
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 5: ()
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,0 +1,54 @@
+Question 1: Fix name in table 
+
+select user_id, concat(upper(left(name,1)), lower(right(name,length(name)-1))) as name from users
+order by user_id
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 2: Patient with a condition
+
+select * from Patients
+where conditions like "DIAB1%" or conditions like '% DIAB1%'
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 3: Delete duplicate email
+
+delete p1 from person p1,person p2 
+where p1.email=p2.email and p1.id>p2.id;
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 4: Second Highest Salary
+
+select
+(select distinct Salary 
+from Employee order by salary desc 
+limit 1 offset 1) 
+as SecondHighestSalary;
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 5: Group sold product by date
+
+select 
+    sell_date, 
+    count(distinct product) as num_sold,
+    group_concat(distinct product order by product) as products
+from Activities
+group by 1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 6: List the product ordered in period
+
+select product_name, SUM(O.unit) as unit 
+from Orders O
+JOIN Products P
+ON O.product_id = P.product_id
+where order_date BETWEEN '2020-02-01' and '2020-02-29'
+Group by 1
+having sum(O.unit) >= 100
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Question 7: Find user name with valid e-mail id
+
+SELECT * FROM Users
+WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode[.]com$';
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
